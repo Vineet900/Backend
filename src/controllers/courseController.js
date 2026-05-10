@@ -14,6 +14,8 @@ export const getCourses = async (req, res, next) => {
 
     if (courseErr) throw courseErr;
 
+    console.log(`📚 [getCourses] Database returned ${courses?.length || 0} courses`);
+
     const { data: allLessons, error: lessonErr } = await supabase
       .from('lessons')
       .select('id, title, slug, chapter_number, course_id');

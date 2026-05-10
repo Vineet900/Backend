@@ -1,7 +1,13 @@
-import dotenv from 'dotenv';
-import { z } from 'zod';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Aggressively load .env from the root Backend folder
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+
+console.log('📡 [Config] Checking Supabase URL:', process.env.SUPABASE_URL || 'MISSING');
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
