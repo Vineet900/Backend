@@ -1,0 +1,114 @@
+2026-05-09 00:29:57:2957 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:29:57:2957 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:31:13:3113 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:31:13:3113 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:31:23:3123 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:31:23:3123 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:31:35:3135 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:31:46:3146 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:31:55:3155 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:31:55:3155 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:32:06:326 [31merror[39m: [31mTypeError: Cannot set property query of #<IncomingMessage> which has only a getter[39m
+2026-05-09 00:33:12:3312 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'sections' in the schema cache[39m
+2026-05-09 00:33:28:3328 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'sections' in the schema cache[39m
+2026-05-09 00:33:28:3328 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'sections' in the schema cache[39m
+2026-05-09 00:34:22:3422 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'sections' in the schema cache[39m
+2026-05-09 00:34:22:3422 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'sections' in the schema cache[39m
+2026-05-09 00:35:31:3531 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:35:32:3532 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:35:48:3548 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:35:48:3548 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:36:20:3620 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:36:20:3620 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:36:29:3629 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:36:29:3629 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:37:00:370 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:37:00:370 [31merror[39m: [31mundefined: Could not find a relationship between 'courses' and 'lessons' in the schema cache[39m
+2026-05-09 00:54:27:5427 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-09 00:54:27:5427 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-09 00:54:27:5427 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-09 00:54:28:5428 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-09 00:54:45:5445 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-09 00:54:45:5445 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-09 00:54:46:5446 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-09 00:54:46:5446 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:20:39:2039 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:20:39:2039 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:20:39:2039 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:20:39:2039 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:21:19:2119 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:21:19:2119 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:21:20:2120 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:21:20:2120 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:21:22:2122 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:21:22:2122 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:21:22:2122 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:21:22:2122 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:33:2333 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:34:2334 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:34:2334 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:34:2334 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:41:2341 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:41:2341 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:42:2342 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:42:2342 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:55:2355 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:55:2355 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:55:2355 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:23:56:2356 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:26:10:2610 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:26:11:2611 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:26:11:2611 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:26:11:2611 [31merror[39m: [31mundefined: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:02:292 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:02:292 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:03:293 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:03:293 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:15:2915 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:15:2915 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:15:2915 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:16:2916 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:29:2929 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:29:2929 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:29:2929 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:29:30:2930 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:11:3011 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:11:3011 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:12:3012 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:12:3012 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:33:3033 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:34:3034 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:34:3034 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:35:3035 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:47:3047 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:48:3048 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:48:3048 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 13:30:48:3048 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 14:03:20:320 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:03:20:320 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:09:21:921 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:09:21:921 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:09:28:928 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:09:28:928 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:09:38:938 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:09:38:938 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:09:38:938 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:09:38:938 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:12:17:1217 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:12:17:1217 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:15:30:1530 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:15:30:1530 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:28:1628 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:28:1628 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:28:1628 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:28:1628 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:52:1652 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:52:1652 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:55:1655 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:55:1655 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:55:1655 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:16:55:1655 [31merror[39m: [31mundefined: Could not find the table 'public.courses' in the schema cache[39m
+2026-05-10 14:17:35:1735 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 14:17:35:1735 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 14:17:36:1736 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m
+2026-05-10 14:17:36:1736 [31merror[39m: [31mDatabase error in getMe: Could not find a relationship between 'profiles' and 'wallets' in the schema cache[39m

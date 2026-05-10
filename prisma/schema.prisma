@@ -1,0 +1,226 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+enum RoadmapStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
+
+enum NotificationType {
+  SYSTEM
+  REWARD
+  STREAK
+  ANNOUNCEMENT
+  COURSE
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  role          Role      @default(STUDENT)
+  isVerified    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  profile       Profile?
+  wallet        Wallet?
+  streaks       Streak?
+  enrollments   Enrollment[]
+  quizAttempts  QuizAttempt[]
+  notifications Notification[]
+  certificates  Certificate[]
+  adminLogs     AdminLog[]
+  progress      Progress[]
+}
+
+model Profile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  username    String   @unique
+  name        String?
+  avatar      String?
+  bio         String?
+  socialLinks Json?    // { twitter, github, linkedin }
+  xp          Int      @default(0)
+  level       Int      @default(1)
+  updatedAt   DateTime @updatedAt
+}
+
+model RoadmapCategory {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  roadmaps  Roadmap[]
+}
+
+model Roadmap {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  icon        String?
+  categoryId  String
+  category    RoadmapCategory @relation(fields: [categoryId], references: [id])
+  courses     Course[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Course {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  thumbnail   String?
+  roadmapId   String?
+  roadmap     Roadmap? @relation(fields: [roadmapId], references: [id])
+  sections    Section[]
+  enrollments Enrollment[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Section {
+  id        String   @id @default(uuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title     String
+  order     Int
+  lessons   Lesson[]
+  quizzes   Quiz[]
+}
+
+model Lesson {
+  id          String   @id @default(uuid())
+  sectionId   String
+  section     Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  title       String
+  content     String?  // Markdown or HTML
+  videoUrl    String?
+  duration    Int      @default(0) // in seconds
+  order       Int
+  xpReward    Int      @default(50)
+  progress    Progress[]
+}
+
+model Quiz {
+  id          String   @id @default(uuid())
+  sectionId   String
+  section     Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  title       String
+  questions   Json     // Array of questions { question, options, answer, explanation }
+  passingScore Int     @default(70)
+  attempts    QuizAttempt[]
+}
+
+model Progress {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId    String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  isCompleted Boolean  @default(false)
+  watchTime   Int      @default(0) // Last watched duration
+  completedAt DateTime?
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, lessonId])
+}
+
+model Enrollment {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  status      RoadmapStatus @default(IN_PROGRESS)
+  enrolledAt  DateTime @default(now())
+
+  @@unique([userId, courseId])
+}
+
+model QuizAttempt {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quizId    String
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  score     Int
+  passed    Boolean
+  attemptedAt DateTime @default(now())
+}
+
+model Wallet {
+  id            String   @id @default(uuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balance       Float    @default(0.0)
+  transactions  Transaction[]
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  walletId    String
+  wallet      Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  amount      Float
+  type        TransactionType
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model Streak {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  count       Int      @default(0)
+  lastActivity DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType @default(SYSTEM)
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Certificate {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId    String?
+  roadmapId   String?
+  issuedAt    DateTime @default(now())
+  verificationId String @unique
+}
+
+model AdminLog {
+  id        String   @id @default(uuid())
+  adminId   String
+  admin     User     @relation(fields: [adminId], references: [id])
+  action    String
+  target    String?
+  createdAt DateTime @default(now())
+}
