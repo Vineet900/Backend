@@ -19,9 +19,11 @@ export const getCourses = async (req, res, next) => {
     }
 
     const supabaseUrl = config.supabase.url;
+    const projectRef = supabaseUrl.split('//')[1]?.split('.')[0] || 'UNKNOWN';
     const keyPrefix = config.supabase.serviceRole ? config.supabase.serviceRole.substring(0, 10) : 'MISSING';
+    const firstCourseId = courses && courses.length > 0 ? courses[0].id : 'NONE';
     
-    console.log(`📚 [getCourses] Request from frontend. URL: ${supabaseUrl} | Key Prefix: ${keyPrefix}... | Found: ${courses?.length || 0} courses`);
+    console.log(`📚 [getCourses] DIAGNOSTIC: Project: ${projectRef} | Found: ${courses?.length || 0} | First ID: ${firstCourseId}`);
 
     const { data: allLessons, error: lessonErr } = await supabase
       .from('lessons')
