@@ -31,9 +31,12 @@ export const getCourses = async (req, res, next) => {
 
     const coursesWithLessons = (courses || []).map(course => ({
       ...course,
-      lessons: (allLessons || []).filter(l => 
-        l.course_id?.toString().toLowerCase() === (course.slug || course.title)?.toString().toLowerCase()
-      )
+      lessons: (allLessons || []).filter(l => {
+        const lessonCourseId = l.course_id?.toString().toLowerCase();
+        const courseSlug = course.slug?.toString().toLowerCase();
+        const courseTitle = course.title?.toString().toLowerCase();
+        return lessonCourseId === courseSlug || lessonCourseId === courseTitle;
+      })
     }));
 
     res.status(200).json({
