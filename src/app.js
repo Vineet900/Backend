@@ -4,7 +4,6 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import hpp from 'hpp';
-import xss from 'xss-clean';
 import mongoSanitize from 'express-mongo-sanitize';
 import { config } from './config/index.js';
 import { errorHandler } from './middleware/error.js';
@@ -57,7 +56,6 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-app.use(xss()); 
 app.use(hpp()); 
 
 // 2. Request Parsing
