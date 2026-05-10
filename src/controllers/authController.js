@@ -14,7 +14,7 @@ export const getMe = async (req, res, next) => {
     let { data: profile, error } = await supabase
       .from('profiles')
       .select('*, wallets(*), streaks(*)')
-      .or(`user_id.eq.${req.user.id},userId.eq.${req.user.id}`) // Support both camelCase and snake_case
+      .eq('user_id', req.user.id)
       .maybeSingle();
 
     if (error) {
@@ -26,8 +26,8 @@ export const getMe = async (req, res, next) => {
         logger.info(`Creating new profile for user ${req.user.id}`);
         const username = req.user.email ? req.user.email.split('@')[0] : `agent_${Math.floor(Math.random() * 10000)}`;
         
-        // Attempt insert with both potential column naming conventions
         const profileData = {
+            user_id: req.user.id,
             username,
             full_name: req.user.email ? req.user.email.split('@')[0] : 'New Agent',
             name: req.user.email ? req.user.email.split('@')[0] : 'New Agent',
@@ -36,39 +36,25 @@ export const getMe = async (req, res, next) => {
             role: 'STUDENT'
         };
 
-        // We try both snake_case and camelCase for the foreign key
-        try {
-            const { data: newProfile, error: createError } = await supabase
-                .from('profiles')
-                .insert({ ...profileData, user_id: req.user.id })
-                .select()
-                .single();
-            
-            if (createError) {
-                // If it fails, try the camelCase version
-                const { data: altProfile, error: altError } = await supabase
-                    .from('profiles')
-                    .insert({ ...profileData, userId: req.user.id })
-                    .select()
-                    .single();
-                
-                if (altError) throw altError;
-                profile = altProfile;
-            } else {
-                profile = newProfile;
-            }
-        } catch (err) {
-            logger.error('Critical: Failed to create profile even with alternate keys:', err);
+        const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert(profileData)
+            .select()
+            .single();
+        
+        if (createError) {
+            logger.error('Critical: Failed to create profile:', createError);
             return res.status(500).json({ 
                 success: false, 
-                message: 'Profile creation blocked by database policies (RLS). Please check Supabase RLS settings.' 
+                message: 'Profile creation blocked by database policies (RLS).' 
             });
         }
+        profile = newProfile;
         
         // Ensure wallet and streak exist
         try {
-            await supabase.from('wallets').insert({ user_id: req.user.id, userId: req.user.id, balance: 0 });
-            await supabase.from('streaks').insert({ user_id: req.user.id, userId: req.user.id, current_streak: 0 });
+            await supabase.from('wallets').insert({ user_id: req.user.id, balance: 0 });
+            await supabase.from('streaks').insert({ user_id: req.user.id, current_streak: 0 });
         } catch (subError) {
             logger.warn('Sub-table initialization partial failure:', subError.message);
         }
