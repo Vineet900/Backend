@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { config } from '../config/index.js';
-import { supabase } from '../database/supabase.js';
+import { supabase, supabaseAuth } from '../database/supabase.js';
 
 /**
  * Middleware to protect routes and verify Supabase JWT
@@ -20,7 +20,7 @@ export const protect = async (req, res, next) => {
 
   try {
     // Validate token with Supabase directly (more robust than manual JWT verify)
-    const { data: { user: authUser }, error: authError } = await supabase.auth.getUser(token);
+    const { data: { user: authUser }, error: authError } = await supabaseAuth.auth.getUser(token);
     
     if (authError || !authUser) {
       if (authError) console.error('Supabase Auth Error:', authError.message);
