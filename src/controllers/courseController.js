@@ -1,4 +1,5 @@
 import { supabase } from '../database/supabase.js';
+import { config } from '../config/index.js';
 import { createCourseSchema, updateCourseSchema } from '../validations/courseValidation.js';
 
 /**
