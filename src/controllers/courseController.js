@@ -19,9 +19,9 @@ export const getCourses = async (req, res, next) => {
     }
 
     const supabaseUrl = config.supabase.url;
-    const hasKey = !!config.supabase.serviceRole;
+    const keyPrefix = config.supabase.serviceRole ? config.supabase.serviceRole.substring(0, 10) : 'MISSING';
     
-    console.log(`📚 [getCourses] Request from frontend. DB URL: ${supabaseUrl} | Has Key: ${hasKey} | Found: ${courses?.length || 0} courses`);
+    console.log(`📚 [getCourses] Request from frontend. URL: ${supabaseUrl} | Key Prefix: ${keyPrefix}... | Found: ${courses?.length || 0} courses`);
 
     const { data: allLessons, error: lessonErr } = await supabase
       .from('lessons')
