@@ -12,9 +12,15 @@ export const getCourses = async (req, res, next) => {
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (courseErr) throw courseErr;
+    if (courseErr) {
+        console.error('❌ [getCourses] Supabase Error:', courseErr);
+        throw courseErr;
+    }
 
-    console.log(`📚 [getCourses] Database returned ${courses?.length || 0} courses`);
+    const supabaseUrl = config.supabase.url;
+    const hasKey = !!config.supabase.serviceRole;
+    
+    console.log(`📚 [getCourses] Request from frontend. DB URL: ${supabaseUrl} | Has Key: ${hasKey} | Found: ${courses?.length || 0} courses`);
 
     const { data: allLessons, error: lessonErr } = await supabase
       .from('lessons')
