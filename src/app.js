@@ -20,18 +20,46 @@ import adminRoutes from './routes/adminRoutes.js';
 import tutorRoutes from './routes/tutorRoutes.js';
 import certificateRoutes from './routes/certificateRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import rateLimit from 'express-rate-limit';
+import xss from 'xss-clean';
 
 const app = express();
 
 // 1. Security Middlewares
-app.use(helmet()); // Set security HTTP headers
+app.use(helmet()); 
+
+// Production-ready CORS
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://devschool-pro.vercel.app'
+];
+
 app.use(cors({
-  origin: config.cors.origin,
-  credentials: true
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
-// app.use(xss()); // Prevent XSS attacks (Incompatible with Express 5)
-app.use(hpp()); // Prevent HTTP Parameter Pollution
-// app.use(mongoSanitize()); // Prevent NoSQL/Parameter injection (Incompatible with Express 5)
+
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per window
+  message: { success: false, message: 'Too many requests from this IP, please try again after 15 minutes' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/', limiter);
+
+app.use(xss()); 
+app.use(hpp()); 
 
 // 2. Request Parsing
 app.use(express.json({ limit: '10mb' }));

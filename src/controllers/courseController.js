@@ -33,7 +33,7 @@ export const getCourses = async (req, res, next) => {
     res.status(200).json({
       success: true,
       count: coursesWithLessons.length,
-      data: coursesWithLessons
+      courses: coursesWithLessons
     });
   } catch (err) {
     next(err);
@@ -77,7 +77,7 @@ export const getCourse = async (req, res, next) => {
 
     res.status(200).json({ 
       success: true, 
-      data: { ...course, lessons } 
+      course: { ...course, lessons } 
     });
   } catch (err) {
     next(err);
@@ -166,6 +166,56 @@ export const getDailyPlan = async (req, res, next) => {
   }
 };
 
+
+/**
+ * @desc    Get lesson details by slug
+ * @route   GET /api/courses/lessons/:slug
+ */
+export const getLessonBySlug = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+
+    const { data: lesson, error } = await supabase
+      .from('lessons')
+      .select('*, courses(title, slug)')
+      .eq('slug', slug)
+      .single();
+
+    if (error || !lesson) {
+      return res.status(404).json({ success: false, message: 'Lesson not found' });
+    }
+
+    res.status(200).json({ success: true, lesson });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * @desc    Search courses by title or category
+ * @route   GET /api/courses/search
+ */
+export const searchCourses = async (req, res, next) => {
+  try {
+    const { q } = req.query;
+
+    if (!q) {
+      return res.status(200).json({ success: true, courses: [] });
+    }
+
+    const { data: courses, error } = await supabase
+      .from('courses')
+      .select('*')
+      .or(`title.ilike.%${q}%,category.ilike.%${q}%,description.ilike.%${q}%`)
+      .limit(20);
+
+    if (error) throw error;
+
+    res.status(200).json({ success: true, courses });
+  } catch (err) {
+    next(err);
+  }
+};
 
 /**
  * @desc    Delete course (Admin Only)

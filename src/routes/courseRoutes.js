@@ -2,6 +2,8 @@ import express from 'express';
 import { 
   getCourses, 
   getCourse, 
+  getLessonBySlug,
+  searchCourses,
   createCourse, 
   updateCourse, 
   deleteCourse,
@@ -12,7 +14,9 @@ import { protect, authorize } from '../middleware/auth.js';
 const router = express.Router();
 
 router.get('/', getCourses);
+router.get('/search', searchCourses);
 router.get('/daily-plan', getDailyPlan);
+router.get('/lessons/:slug', getLessonBySlug);
 router.get('/:id', getCourse);
 
 router.post('/', protect, authorize('ADMIN', 'INSTRUCTOR'), createCourse);

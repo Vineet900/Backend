@@ -124,11 +124,12 @@ export const register = async (req, res, next) => {
     }
 
     if (data.session) {
+      const isProd = process.env.NODE_ENV === 'production';
       res.cookie('token', data.session.access_token, {
         httpOnly: true,
-        secure: false, // Set to true in production with HTTPS
-        sameSite: 'lax',
-        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+        secure: isProd, // True in production (HTTPS)
+        sameSite: isProd ? 'none' : 'lax', // 'none' for cross-domain Vercel support
+        maxAge: 30 * 24 * 60 * 60 * 1000 
       });
     }
 
@@ -149,15 +150,33 @@ export const login = async (req, res, next) => {
     if (error) return res.status(401).json({ success: false, message: 'Invalid credentials' });
 
     if (data.session) {
+      const isProd = process.env.NODE_ENV === 'production';
       res.cookie('token', data.session.access_token, {
         httpOnly: true,
-        secure: false, // Set to true in production with HTTPS
-        sameSite: 'lax',
-        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+        secure: isProd,
+        sameSite: isProd ? 'none' : 'lax',
+        maxAge: 30 * 24 * 60 * 60 * 1000 
       });
     }
 
     res.status(200).json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * @desc    Forgot Password (Placeholder for Production)
+ */
+export const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${process.env.FRONTEND_URL}/auth/reset-password`,
+    });
+
+    if (error) throw error;
+    res.status(200).json({ success: true, message: 'Password reset instructions sent to your email.' });
   } catch (err) {
     next(err);
   }

@@ -109,10 +109,30 @@ export const getWallet = async (req, res, next) => {
 };
 
 /**
+ * @desc    Get user notifications
+ * @route   GET /api/user/notifications
+ */
+export const getNotifications = async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('notifications')
+      .select('*')
+      .eq('user_id', req.user.id)
+      .order('created_at', { ascending: false })
+      .limit(20);
+
+    if (error) throw error;
+    res.status(200).json({ success: true, notifications: data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
  * @desc    Get Global Leaderboard
- * @route   GET /api/user/leaderboard
  */
 export const getLeaderboard = async (req, res, next) => {
+  // ... existing code ...
   try {
     const { data, error } = await supabase
       .from('profiles')
