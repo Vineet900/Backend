@@ -7,32 +7,30 @@ import { createCourseSchema, updateCourseSchema } from '../validations/courseVal
  */
 export const getCourses = async (req, res, next) => {
   try {
-    // 1. Fetch all courses
     const { data: courses, error: courseErr } = await supabase
       .from('courses')
       .select('*')
-      .order('id', { ascending: true });
+      .order('created_at', { ascending: false });
 
     if (courseErr) throw courseErr;
 
-    // 2. Fetch all lessons to link them (since DB relationship is broken)
     const { data: allLessons, error: lessonErr } = await supabase
       .from('lessons')
       .select('id, title, slug, chapter_number, course_id');
 
     if (lessonErr) throw lessonErr;
 
-    // 3. Map lessons to courses manually
-    const coursesWithLessons = courses.map(course => ({
+    const coursesWithLessons = (courses || []).map(course => ({
       ...course,
-      lessons: allLessons.filter(l => 
-        l.course_id?.toLowerCase() === (course.slug || course.title)?.toLowerCase()
+      lessons: (allLessons || []).filter(l => 
+        l.course_id?.toString().toLowerCase() === (course.slug || course.title)?.toString().toLowerCase()
       )
     }));
 
     res.status(200).json({
       success: true,
       count: coursesWithLessons.length,
+      data: coursesWithLessons,
       courses: coursesWithLessons
     });
   } catch (err) {
@@ -48,7 +46,6 @@ export const getCourse = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    // 1. Fetch course by slug or ID
     const isNumeric = !isNaN(id) && !id.includes('-');
     let query = supabase.from('courses').select('*');
     
@@ -58,26 +55,25 @@ export const getCourse = async (req, res, next) => {
     const { data: course, error } = await query.single();
 
     if (error || !course) {
-      // Fallback to title if slug fails
       const { data: fallbackCourse } = await supabase.from('courses').select('*').ilike('title', id).single();
       if (!fallbackCourse) {
         return res.status(404).json({ success: false, message: 'Course not found in intelligence database' });
       }
-      return res.status(200).json({ success: true, data: { ...fallbackCourse, lessons: [] } });
+      return res.status(200).json({ success: true, data: fallbackCourse, course: fallbackCourse });
     }
 
-    // 2. Fetch lessons for this course manually
     const { data: lessons, error: lessonErr } = await supabase
       .from('lessons')
       .select('*')
       .eq('course_id', course.slug || course.title)
       .order('chapter_number', { ascending: true });
 
-    if (lessonErr) throw lessonErr;
+    const courseData = { ...course, lessons: lessons || [] };
 
     res.status(200).json({ 
       success: true, 
-      course: { ...course, lessons } 
+      data: courseData,
+      course: courseData 
     });
   } catch (err) {
     next(err);
