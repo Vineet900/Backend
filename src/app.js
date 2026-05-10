@@ -23,14 +23,18 @@ import rateLimit from 'express-rate-limit';
 
 const app = express();
 
-// 1. Security Middlewares
+// 1. Production Security
+app.set('etag', false); // Disable ETag to prevent stale 304 caching of learning data
 app.use(helmet()); 
+app.use(mongoSanitize());
+app.use(hpp());
 
-// Production-ready CORS
+// 2. Optimized CORS for Vercel/AWS Cross-Domain
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
-  'https://devschool-pro.vercel.app'
+  'https://devschool-pro.vercel.app',
+  'https://devschoolpro.com'
 ];
 
 app.use(cors({
@@ -38,7 +42,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('CORS Policy Blocked Request'));
     }
   },
   credentials: true,
@@ -46,33 +50,31 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-// Rate Limiting
+// 3. Rate Limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per window
-  message: { success: false, message: 'Too many requests from this IP, please try again after 15 minutes' },
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  message: { success: false, message: 'Rate limit exceeded' },
   standardHeaders: true,
   legacyHeaders: false,
 });
 app.use('/api/', limiter);
 
-app.use(hpp()); 
-
-// 2. Request Parsing
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// 4. Request Parsing
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 app.use(cookieParser());
 
-// 3. Logging
+// 5. Logging
 if (config.env === 'development') {
   app.use(morgan('dev'));
 } else {
   app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
 }
 
-// 4. Routes
+// 6. API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes); // Singular to match frontend
+app.use('/api/user', userRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/quizzes', quizRoutes);
@@ -81,17 +83,17 @@ app.use('/api/tutor', tutorRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/uploads', uploadRoutes);
 
-// 5. Health Check
+// 7. Health Check
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'UP', timestamp: new Date().toISOString() });
+  res.status(200).json({ status: 'HEALTHY', timestamp: new Date().toISOString() });
 });
 
-// 6. 404 Handler (Catch-all)
+// 8. 404 Handler
 app.use((req, res) => {
-  res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });
+  res.status(404).json({ success: false, message: 'Resource not found' });
 });
 
-// 7. Global Error Handler
+// 9. Global Error Handler
 app.use(errorHandler);
 
 export default app;

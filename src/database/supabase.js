@@ -1,22 +1,26 @@
 import { createClient } from '@supabase/supabase-js';
 import { config } from '../config/index.js';
 
-if (!config.supabase.url || !config.supabase.serviceRole) {
-  throw new Error('Supabase URL or Service Role Key missing in config');
-}
+/**
+ * 🛡️ ENTERPRISE ARCHITECTURE: Isolated Clients
+ * We use two separate clients to prevent "Session Pollution".
+ * 
+ * 1. supabaseAdmin: Used for DB operations. persistSession is FALSE.
+ * 2. supabaseAuth: Used for token verification. isolated from DB client.
+ */
 
-// Administrative client (Service Role) - Always bypasses RLS
 export const supabase = createClient(config.supabase.url, config.supabase.serviceRole, {
   auth: {
+    persistSession: false,
     autoRefreshToken: false,
-    persistSession: false
+    detectSessionInUrl: false
   }
 });
 
-// Auth-only client (Anon Key) - Used for verifying user tokens without polluting the Admin client
 export const supabaseAuth = createClient(config.supabase.url, config.supabase.serviceRole, {
   auth: {
+    persistSession: false,
     autoRefreshToken: false,
-    persistSession: false
+    detectSessionInUrl: false
   }
 });

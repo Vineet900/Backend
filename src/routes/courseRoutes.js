@@ -2,25 +2,16 @@ import express from 'express';
 import { 
   getCourses, 
   getCourse, 
-  getLessonBySlug,
-  searchCourses,
-  createCourse, 
-  updateCourse, 
-  deleteCourse,
-  getDailyPlan
+  getLessonBySlug, 
+  searchCourses 
 } from '../controllers/courseController.js';
-import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// Public routes
 router.get('/', getCourses);
 router.get('/search', searchCourses);
-router.get('/daily-plan', getDailyPlan);
-router.get('/lessons/:slug', getLessonBySlug);
+router.get('/lessons/:slug', getLessonBySlug); // This was causing the 404
 router.get('/:id', getCourse);
-
-router.post('/', protect, authorize('ADMIN', 'INSTRUCTOR'), createCourse);
-router.put('/:id', protect, authorize('ADMIN', 'INSTRUCTOR'), updateCourse);
-router.delete('/:id', protect, authorize('ADMIN'), deleteCourse);
 
 export default router;

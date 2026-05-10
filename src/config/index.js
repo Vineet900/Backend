@@ -6,10 +6,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Aggressively load .env from the root Backend folder
+// Load .env from root
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-
-console.log('📡 [Config] Checking Supabase URL:', process.env.SUPABASE_URL || 'MISSING');
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
@@ -17,15 +15,14 @@ const envSchema = z.object({
   SUPABASE_URL: z.string().url(),
   SUPABASE_SERVICE_ROLE_KEY: z.string(),
   SUPABASE_JWT_SECRET: z.string(),
-  FRONTEND_URL: z.string().url().default('http://localhost:5173'),
+  FRONTEND_URL: z.string().url().default('http://localhost:3000'),
   JWT_EXPIRE: z.string().default('30d'),
-  OPENROUTER_API_KEY: z.string().optional(),
 });
 
 const envVars = envSchema.safeParse(process.env);
 
 if (!envVars.success) {
-  console.log('❌ Invalid environment variables:', JSON.stringify(envVars.error.format(), null, 2));
+  console.error('❌ Invalid environment variables:', JSON.stringify(envVars.error.format(), null, 2));
   process.exit(1);
 }
 
@@ -42,8 +39,5 @@ export const config = {
   },
   jwt: {
     expire: envVars.data.JWT_EXPIRE,
-  },
-  ai: {
-    openRouterKey: envVars.data.OPENROUTER_API_KEY,
   }
 };
