@@ -21,7 +21,6 @@ import tutorRoutes from './routes/tutorRoutes.js';
 import certificateRoutes from './routes/certificateRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import rateLimit from 'express-rate-limit';
-import xss from 'xss-clean';
 
 const app = express();
 
