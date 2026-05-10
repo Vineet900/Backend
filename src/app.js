@@ -3,8 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
-import hpp from 'hpp';
-import mongoSanitize from 'express-mongo-sanitize';
 import { config } from './config/index.js';
 import { errorHandler } from './middleware/error.js';
 import { logger } from './utils/logger.js';
@@ -26,8 +24,6 @@ const app = express();
 // 1. Production Security
 app.set('etag', false); // Disable ETag to prevent stale 304 caching of learning data
 app.use(helmet()); 
-app.use(mongoSanitize());
-app.use(hpp());
 
 // 2. Optimized CORS for Vercel/AWS Cross-Domain
 const allowedOrigins = [
