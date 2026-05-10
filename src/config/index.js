@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+import { z } from 'zod';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
