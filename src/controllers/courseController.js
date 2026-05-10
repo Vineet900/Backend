@@ -48,17 +48,22 @@ export const getCourse = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    // 1. Fetch course by title or ID
-    const isNumeric = !isNaN(id);
+    // 1. Fetch course by slug or ID
+    const isNumeric = !isNaN(id) && !id.includes('-');
     let query = supabase.from('courses').select('*');
     
     if (isNumeric) query = query.eq('id', id);
-    else query = query.ilike('title', id);
+    else query = query.eq('slug', id);
 
     const { data: course, error } = await query.single();
 
     if (error || !course) {
-      return res.status(404).json({ success: false, message: 'Course not found' });
+      // Fallback to title if slug fails
+      const { data: fallbackCourse } = await supabase.from('courses').select('*').ilike('title', id).single();
+      if (!fallbackCourse) {
+        return res.status(404).json({ success: false, message: 'Course not found in intelligence database' });
+      }
+      return res.status(200).json({ success: true, data: { ...fallbackCourse, lessons: [] } });
     }
 
     // 2. Fetch lessons for this course manually

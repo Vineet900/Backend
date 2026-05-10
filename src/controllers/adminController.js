@@ -129,9 +129,9 @@ export const getSettings = async (req, res, next) => {
  */
 export const getAnalytics = async (req, res, next) => {
   try {
-    const { data: userCount } = await supabase.from('profiles').select('id', { count: 'exact', head: true });
-    const { data: lessonCount } = await supabase.from('lessons').select('id', { count: 'exact', head: true });
-    const { data: progressCount } = await supabase.from('user_progress').select('id', { count: 'exact', head: true });
+    const { count: userCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
+    const { count: lessonCount } = await supabase.from('lessons').select('*', { count: 'exact', head: true });
+    const { count: progressCount } = await supabase.from('user_progress').select('*', { count: 'exact', head: true });
     
     // Recent activity trends
     const { data: recentActivity } = await supabase
@@ -143,9 +143,9 @@ export const getAnalytics = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: {
-        totalUsers: userCount?.length || 0,
-        totalLessons: lessonCount?.length || 0,
-        totalCompletions: progressCount?.length || 0,
+        totalUsers: userCount || 0,
+        totalLessons: lessonCount || 0,
+        totalCompletions: progressCount || 0,
         activeTrends: recentActivity || []
       }
     });
@@ -178,3 +178,21 @@ export const manageUser = async (req, res, next) => {
   }
 };
 
+/**
+ * @desc    Get all users (Admin Only)
+ * @route   GET /api/admin/users
+ */
+export const getUsers = async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    res.status(200).json({ success: true, count: data.length, data });
+  } catch (err) {
+    next(err);
+  }
+};

@@ -8,9 +8,9 @@ dotenv.config()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const contentRoot = path.resolve(__dirname, '../../../frontend/src/content')
-const coursesRoot = path.resolve(__dirname, '../../../frontend/src/content/courses')
-const quizzesRoot = path.resolve(__dirname, '../../../frontend/src/content/quizzes')
+const contentRoot = path.resolve(__dirname, '../../../frontend devschool/src/content')
+const coursesRoot = path.resolve(__dirname, '../../../frontend devschool/src/content/courses')
+const quizzesRoot = path.resolve(__dirname, '../../../frontend devschool/src/content/quizzes')
 
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY

@@ -6,7 +6,8 @@ import {
   adjustUserPoints, 
   toggleUserBan, 
   getAuditLogs, 
-  getSettings 
+  getSettings,
+  getUsers
 } from '../controllers/adminController.js';
 import { protect, authorize } from '../middleware/auth.js';
 
@@ -16,6 +17,7 @@ router.use(protect);
 router.use(authorize('ADMIN'));
 
 router.get('/stats', getAnalytics);
+router.get('/users', getUsers);
 router.get('/system-health', getSystemHealth);
 router.get('/audit-logs', getAuditLogs);
 router.get('/settings', getSettings);

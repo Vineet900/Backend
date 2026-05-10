@@ -71,8 +71,46 @@ export const convertXPToSP = async (req, res, next) => {
 };
 
 /**
+ * @desc    Get current user profile
+ * @route   GET /api/user/profile
+ */
+export const getProfile = async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('user_id', req.user.id)
+      .single();
+
+    if (error) throw error;
+    res.status(200).json({ success: true, profile: data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * @desc    Get user wallet balance
+ * @route   GET /api/user/wallet
+ */
+export const getWallet = async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from('wallets')
+      .select('*')
+      .eq('user_id', req.user.id)
+      .single();
+
+    if (error) throw error;
+    res.status(200).json({ success: true, wallet: data });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
  * @desc    Get Global Leaderboard
- * @route   GET /api/v1/users/leaderboard
+ * @route   GET /api/user/leaderboard
  */
 export const getLeaderboard = async (req, res, next) => {
   try {

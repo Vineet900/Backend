@@ -3,11 +3,11 @@ import { config } from '../config/index.js';
 
 /**
  * @desc    Get AI Tutor response (Strict Production Mode)
- * @route   POST /api/tutor
+ * @route   POST /api/tutor/chat
  */
 export const askTutor = async (req, res, next) => {
   try {
-    const { question, history, language, level } = req.body;
+    const { message, history = [], language = 'EN', level = 'Beginner' } = req.body;
     const apiKey = config.ai.openRouterKey;
     
     if (!apiKey) {
@@ -23,10 +23,10 @@ export const askTutor = async (req, res, next) => {
         messages: [
           { 
             role: 'system', 
-            content: `You are the DevSchool Pro AI Mentor. You help students learn web development. Language: ${language}. Level: ${level}.` 
+            content: `You are the DevSchool Pro AI Mentor. You help students learn web development. Language: ${language}. Level: ${level}. Keep responses concise and focused on coding.` 
           },
           ...history,
-          { role: 'user', content: question }
+          { role: 'user', content: message }
         ]
       }, {
         headers: {
@@ -34,21 +34,37 @@ export const askTutor = async (req, res, next) => {
           'HTTP-Referer': config.cors.origin,
           'X-Title': 'DevSchool Pro'
         },
-        timeout: 10000 // 10 second timeout
+        timeout: 15000 
       });
 
       res.status(200).json({
         success: true,
-        answer: response.data.choices[0].message.content
+        reply: response.data.choices[0].message.content
       });
     } catch (aiError) {
-      // Log error but don't return mock data
-      console.error('AI Provider Error:', aiError.message);
+      console.error('AI Provider Error:', aiError.response?.data || aiError.message);
       res.status(502).json({ 
         success: false, 
         message: 'The AI Mentor is taking a break. Please retry in a few seconds.' 
       });
     }
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * @desc    Get Chat History
+ * @route   GET /api/tutor/history
+ */
+export const getHistory = async (req, res, next) => {
+  try {
+    // For now, return empty history as DB table is not yet initialized in setup.sql
+    // This prevents frontend errors while maintaining "ready" state
+    res.status(200).json({
+      success: true,
+      history: []
+    });
   } catch (err) {
     next(err);
   }

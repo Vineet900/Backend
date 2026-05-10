@@ -4,7 +4,7 @@ dotenv.config()
 
 export const env = {
   port: Number(process.env.PORT || 4000),
-  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   dashboardTable: process.env.DASHBOARD_TABLE || 'dashboard_overview',
   llmProvider: String(process.env.LLM_PROVIDER || '').toLowerCase(),
   openaiApiKey: process.env.OPENAI_API_KEY || '',
